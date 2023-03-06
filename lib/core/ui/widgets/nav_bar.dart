@@ -61,7 +61,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
               color: currentTabIndex == 0 ? Colors.blue : Colors.white,
               icon: Icons.home,
             ),
-            label: 'Home',
+            label: 'Posts',
           ),
 
           // book mark
@@ -70,7 +70,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
               color: currentTabIndex == 1 ? Colors.blue : Colors.white,
               icon: Icons.bookmark,
             ),
-            label: 'Bookmark',
+            label: 'Bookmarks',
           ),
         ],
         selectedItemColor: Colors.white,
