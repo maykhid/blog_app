@@ -6,7 +6,10 @@ import '../../../../../core/ui/widgets/app_spacing.dart';
 class PostCard extends StatelessWidget {
   const PostCard({
     super.key,
+    this.showBookmarkedStatus = false,
   });
+
+  final bool showBookmarkedStatus;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +54,14 @@ class PostCard extends StatelessWidget {
                       style:
                           TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
                 ],
-              )
+              ),
+
+              const Spacer(),
+
+              showBookmarkedStatus
+                  ? IconButton(
+                      onPressed: () {}, icon: const Icon(Icons.bookmark))
+                  : const SizedBox(),
             ],
           ),
 

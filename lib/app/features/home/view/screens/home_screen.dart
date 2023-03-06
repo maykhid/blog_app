@@ -16,17 +16,15 @@ class HomeScreen extends StatelessWidget {
         title: const Text('Posts'),
       ),
       body: SafeArea(
+        minimum: const EdgeInsets.symmetric(horizontal: 8),
         child: ListView.separated(
           itemCount: 4,
           separatorBuilder: (context, count) => const SizedBox.square(
             dimension: 8,
           ),
-          itemBuilder: (context, count) => Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: InkWell(
-              onTap: () => navigationService.navigateToRoute(const PostView()),
-              child: const PostCard(),
-            ),
+          itemBuilder: (context, count) => InkWell(
+            onTap: () => navigationService.navigateToRoute(const PostView()),
+            child: const PostCard(),
           ),
         ),
       ),

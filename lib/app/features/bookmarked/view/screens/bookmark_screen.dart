@@ -1,3 +1,4 @@
+import 'package:blog_app/app/features/home/view/widgets/postcard_widget.dart';
 import 'package:flutter/material.dart';
 
 class BookmarkScreen extends StatelessWidget {
@@ -10,8 +11,13 @@ class BookmarkScreen extends StatelessWidget {
         title: const Text('Bookmarks'),
       ),
       body: SafeArea(
-        child:
-            ListView.builder(itemCount: 4, itemBuilder: (context, _) => const Text('Test')),
+        minimum: const EdgeInsets.symmetric(horizontal: 8),
+        child: ListView.separated(
+            separatorBuilder: (context, count) => const SizedBox.square(
+                  dimension: 8,
+                ),
+            itemCount: 4,
+            itemBuilder: (context, _) => const PostCard(showBookmarkedStatus: true,)),
       ),
     );
   }
