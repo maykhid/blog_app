@@ -36,53 +36,45 @@ class _BottomNavigationState extends State<BottomNavigation> {
       body: getViewForIndex(currentTabIndex),
       // extendBodyBehindAppBar: true,
       // extendBody: true,
-      bottomNavigationBar: Theme(
-          data: Theme.of(context).copyWith(
-            // sets the background color of the `BottomNavigationBar`
-            canvasColor: Colors.transparent,
-            // sets the active color of the `BottomNavigationBar` if `Brightness` is light
-            // primaryColor: AppColors.white,
-            // backgroundColor: Colors.transparent,
+      bottomNavigationBar: BottomNavigationBar(
+        selectedFontSize: 10,
+        unselectedFontSize: 10,
+        iconSize: 30,
+        unselectedItemColor: Colors.black.withOpacity(0.4),
+        selectedLabelStyle: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w400,
+        ),
+        unselectedLabelStyle: TextStyle(
+          color: Colors.grey.withOpacity(0.1),
+          fontWeight: FontWeight.w400,
+        ),
+        // iconSize: 15,
+        type: BottomNavigationBarType.fixed,
+        onTap: (newTab) => setCurrentTabTo(newTabIndex: newTab),
+        backgroundColor: Colors.blue,
+        currentIndex: currentTabIndex,
+        items: <BottomNavigationBarItem>[
+          // dashboard
+          BottomNavigationBarItem(
+            icon: BottomItemIcon(
+              color: currentTabIndex == 0 ? Colors.blue : Colors.white,
+              icon: Icons.home,
+            ),
+            label: 'Home',
           ),
-          child: BottomNavigationBar(
-            selectedFontSize: 10,
-            unselectedFontSize: 10,
-            iconSize: 30,
-            unselectedItemColor: Colors.black.withOpacity(0.4),
-            selectedLabelStyle: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w400,
-            ),
-            unselectedLabelStyle: TextStyle(
-              color: Colors.grey.withOpacity(0.1),
-              fontWeight: FontWeight.w400,
-            ),
-            // iconSize: 15,
-            type: BottomNavigationBarType.fixed,
-            onTap: (newTab) => setCurrentTabTo(newTabIndex: newTab),
-            backgroundColor: Colors.blue,
-            currentIndex: currentTabIndex,
-            items: <BottomNavigationBarItem>[
-              // dashboard
-              BottomNavigationBarItem(
-                icon: BottomItemIcon(
-                  color: currentTabIndex == 0 ? Colors.blue : Colors.white,
-                  icon: Icons.home,
-                ),
-                label: 'Home',
-              ),
 
-              // book mark
-              BottomNavigationBarItem(
-                icon: BottomItemIcon(
-                  color: currentTabIndex == 1 ? Colors.blue : Colors.white,
-                  icon: Icons.bookmark,
-                ),
-                label: 'Bookmark',
-              ),
-            ],
-            selectedItemColor: Colors.white,
-          )),
+          // book mark
+          BottomNavigationBarItem(
+            icon: BottomItemIcon(
+              color: currentTabIndex == 1 ? Colors.blue : Colors.white,
+              icon: Icons.bookmark,
+            ),
+            label: 'Bookmark',
+          ),
+        ],
+        selectedItemColor: Colors.white,
+      ),
     );
   }
 }
