@@ -27,7 +27,11 @@ class PostCard extends StatelessWidget {
               Container(
                 height: 100,
                 width: 130,
-                color: Colors.black,
+                decoration: BoxDecoration(
+                  border: Border.all(),
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(8),
+                ),
               ),
 
               const HorizontalSpace(
@@ -39,16 +43,21 @@ class PostCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: const [
-                  Text('Title name', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),),
-                  Text('Author name', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
+                  Text(
+                    'Title name',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                  ),
+                  Text('Author name',
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
                 ],
               )
             ],
           ),
 
           const VerticalSpace(
-                size: 10,
-              ),
+            size: 10,
+          ),
 
           // short blog details text
           const Text(
