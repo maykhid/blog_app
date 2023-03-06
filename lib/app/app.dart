@@ -1,6 +1,9 @@
 import 'package:blog_app/core/ui/widgets/nav_bar.dart';
 import 'package:flutter/material.dart';
 
+import '../core/dependency_injector.dart';
+import '../core/router/navigation_service.dart';
+
 class BlogApp extends StatelessWidget {
   const BlogApp({super.key});
 
@@ -21,6 +24,7 @@ class BlogApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
+      navigatorKey: di<NavigationService>().navigationKey,
       home: const BottomNavigation(),
     );
   }

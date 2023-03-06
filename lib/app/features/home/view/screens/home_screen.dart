@@ -1,5 +1,8 @@
+import 'package:blog_app/app/features/home/view/screens/postview_screen.dart';
+import 'package:blog_app/core/router/navigation_service.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../core/dependency_injector.dart';
 import '../widgets/postcard_widget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -7,6 +10,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    NavigationService navigationService = di<NavigationService>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Posts'),
@@ -17,13 +21,15 @@ class HomeScreen extends StatelessWidget {
           separatorBuilder: (context, count) => const SizedBox.square(
             dimension: 8,
           ),
-          itemBuilder: (context, count) => const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8),
-            child: PostCard(),
+          itemBuilder: (context, count) => Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: InkWell(
+              onTap: () => navigationService.navigateToRoute(const PostView()),
+              child: const PostCard(),
+            ),
           ),
         ),
       ),
     );
   }
 }
-
