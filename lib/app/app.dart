@@ -1,3 +1,4 @@
+import 'package:blog_app/core/ui/widgets/nav_bar.dart';
 import 'package:flutter/material.dart';
 
 class BlogApp extends StatelessWidget {
@@ -20,6 +21,7 @@ class BlogApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
+      home: const BottomNavigation(),
     );
   }
 }
