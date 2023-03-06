@@ -8,7 +8,7 @@ class Post extends Equatable {
   const Post({required this.userId, required this.id, required this.body});
 
   factory Post.fromJson(Map<String, dynamic> json) =>
-      Post(userId: json["id"], id: json["id"], body: json["body"]);
+      Post(userId: json["userId"], id: json["id"], body: json["body"]);
 
   @override
   List<Object?> get props => [userId, id, body];

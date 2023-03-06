@@ -2,14 +2,17 @@ import 'package:blog_app/core/ui/extensions/sized_context.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/ui/widgets/app_spacing.dart';
+import '../../../shared/model/post.dart';
 
 class PostCard extends StatelessWidget {
   const PostCard({
     super.key,
     this.showBookmarkedStatus = false,
+    required this.post,
   });
 
   final bool showBookmarkedStatus;
+  final Post post;
 
   @override
   Widget build(BuildContext context) {
