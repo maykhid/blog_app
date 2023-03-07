@@ -53,8 +53,9 @@ class HomeScreen extends StatelessWidget {
                     dimension: 8,
                   ),
                   itemBuilder: (context, count) => InkWell(
-                    onTap: () =>
-                        navigationService.navigateToRoute(const PostView()),
+                    onTap: () => navigationService.navigateToRoute(PostView(
+                      post: postResponse[count],
+                    )),
                     child: PostCard(
                       post: postResponse[count],
                     ),

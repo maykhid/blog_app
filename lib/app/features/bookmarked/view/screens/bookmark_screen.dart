@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/dependency_injector.dart';
 import '../../../../../core/utils/enums.dart';
 import '../../../home/view/widgets/postcard_widget.dart';
-import '../../../shared/model/post.dart';
 import '../cubits/bookmarkedPosts/bookmarked_posts_cubit.dart';
 
 class BookmarkScreen extends StatelessWidget {
@@ -21,12 +20,15 @@ class BookmarkScreen extends StatelessWidget {
         minimum: const EdgeInsets.symmetric(horizontal: 8),
         child: BlocProvider<BookmarkedPostsCubit>(
           create: (ctx) => BookmarkedPostsCubit(bookmarkRepository: di())
-            ..getBoormarkedPosts(),
+            ..getBookmarkedPosts(),
           child: BlocConsumer<BookmarkedPostsCubit, BookmarkedPostsState>(
             listener: (context, state) {
               // listen and call when needed
             },
             builder: (context, state) {
+              final bookmarkedPosts = state.bookmarkedPosts != null
+                  ? state.bookmarkedPosts!.posts
+                  : [];
               switch (state.status) {
                 // initial
                 case DataResponseStatus.initial:
@@ -46,7 +48,7 @@ class BookmarkScreen extends StatelessWidget {
                   );
 
                 case DataResponseStatus.success:
-                  if (state.bookmarkedPosts!.posts.isEmpty) {
+                  if (bookmarkedPosts.isEmpty) {
                     return const Center(
                       child: Text(
                         'You do not have any bookmarked posts yet!',
@@ -57,10 +59,12 @@ class BookmarkScreen extends StatelessWidget {
                     separatorBuilder: (context, count) => const SizedBox.square(
                       dimension: 8,
                     ),
-                    itemCount: 4,
-                    itemBuilder: (context, _) => const PostCard(
+                    itemCount: bookmarkedPosts.length,
+                    itemBuilder: (context, index) => PostCard(
                       showBookmarkedStatus: true,
-                      post: Post(userId: 1, id: 2, body: ''),
+                      post: bookmarkedPosts[index],
+                      onBookmarkPressed: () => _handleRemoveBookmark(
+                          context.read<BookmarkedPostsCubit>(), index),
                     ),
                   );
 
@@ -73,4 +77,8 @@ class BookmarkScreen extends StatelessWidget {
       ),
     );
   }
+
+  _handleRemoveBookmark(BookmarkedPostsCubit cubit, int index) => cubit
+    ..clearBookmarkedPost(index)
+    ..getBookmarkedPosts();
 }

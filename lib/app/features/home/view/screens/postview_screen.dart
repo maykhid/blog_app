@@ -1,15 +1,36 @@
+import 'package:blog_app/app/features/bookmarked/view/cubits/bookmarkedPosts/bookmarked_posts_cubit.dart';
+import 'package:blog_app/app/features/bookmarked/view/cubits/bookmarkedPosts/boookmarked_posts_state.dart';
 import 'package:blog_app/core/ui/extensions/sized_context.dart';
 import 'package:blog_app/core/ui/widgets/app_spacing.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class PostView extends StatelessWidget {
-  const PostView({super.key});
+import '../../../../../core/dependency_injector.dart';
+import '../../../shared/model/post.dart';
+
+class PostView extends StatefulWidget {
+  const PostView({super.key, required this.post});
+
+  final Post post;
+
+  @override
+  State<PostView> createState() => _PostViewState();
+}
+
+class _PostViewState extends State<PostView> {
+  late Post post;
+
+  @override
+  void initState() {
+    post = widget.post;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Post Title'),
+        title: Text('Article ${post.id}'),
       ),
       body: SafeArea(
         minimum: const EdgeInsets.all(8),
@@ -30,75 +51,111 @@ class PostView extends StatelessWidget {
               size: 20,
             ),
 
-            SizedBox(
-              height: 50,
-              width: context.width,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
-                        'Title name',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w700),
+            BlocProvider<BookmarkedPostsCubit>(
+              create: (ctx) => BookmarkedPostsCubit(bookmarkRepository: di())
+                ..getBookmarkedPosts(),
+              child: BlocConsumer<BookmarkedPostsCubit, BookmarkedPostsState>(
+                  listener: (context, state) {
+                // listen and call when needed
+              }, builder: (context, state) {
+                List<Post> bookmarkedPosts = state.bookmarkedPosts != null
+                    ? state.bookmarkedPosts!.posts
+                    : [];
+                return SizedBox(
+                  height: 50,
+                  width: context.width,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Article ${post.id}',
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.w700),
+                          ),
+                          Text(
+                            'Author ${post.userId}',
+                            style: const TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        'Author name',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
+
+                      //
+                      SizedBox(
+                        // width: 40,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.share,
+                                size: 30,
+                              ),
+                            ),
+                            const HorizontalSpace(
+                              size: 25,
+                            ),
+
+                            // bookmark button
+                            IconButton(
+                              onPressed: () =>
+                                  _isPostBookmarked(bookmarkedPosts)
+                                      ? _handleRemoveBookmark(
+                                          context.read<BookmarkedPostsCubit>(),
+                                          bookmarkedPosts)
+                                      : _handleBookmark(
+                                          context.read<BookmarkedPostsCubit>()),
+                              icon: Icon(
+                                Icons.bookmark,
+                                size: 30,
+                                color: _isPostBookmarked(bookmarkedPosts)
+                                    ? Colors.blue
+                                    : Colors.black.withOpacity(0.4),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
-
-                  //
-                  SizedBox(
-                    // width: 40,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.share,
-                            size: 30,
-                          ),
-                        ),
-                        const HorizontalSpace(
-                          size: 25,
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.bookmark,
-                            size: 30,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                );
+              }),
             ),
 
             const VerticalSpace(
               size: 20,
             ),
 
-            const Expanded(
+            Expanded(
               child: Text(
-                '''Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium optio, eaque rerum! Provident similique accusantium nemo autem. ''',
-                style: TextStyle(fontSize: 20),
-                textAlign: TextAlign.justify,
+                '${post.body} ${post.body}',
+                style: const TextStyle(fontSize: 20),
+                textAlign: TextAlign.start,
               ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  bool _isPostBookmarked(posts) => posts.contains(post);
+
+  void _handleBookmark(BookmarkedPostsCubit bookmarkCubit) => bookmarkCubit
+    ..bookmarkPost(post)
+    ..getBookmarkedPosts();
+
+  _handleRemoveBookmark(BookmarkedPostsCubit cubit, List<Post> posts) {
+    int index = posts.indexWhere((p) => p == post);
+    cubit
+      ..clearBookmarkedPost(index)
+      ..getBookmarkedPosts();
   }
 }

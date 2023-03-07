@@ -17,6 +17,11 @@ class Post extends Equatable {
   factory Post.fromJson(Map<String, dynamic> json) =>
       Post(userId: json["userId"], id: json["id"], body: json["body"]);
 
+  Map<String, dynamic> toMap() => {"userId": userId, "id": id, "body": body};
+
+  @override
+  String toString() => toMap().toString();
+
   @override
   List<Object?> get props => [userId, id, body];
 }
@@ -30,4 +35,7 @@ class Posts {
 
   factory Posts.fromJson(List<dynamic> data) =>
       Posts(posts: List<Post>.from(data.map((e) => Post.fromJson(e))));
+
+  @override
+  String toString() => posts.toString();
 }
