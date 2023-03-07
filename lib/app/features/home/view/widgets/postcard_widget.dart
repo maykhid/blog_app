@@ -9,10 +9,12 @@ class PostCard extends StatelessWidget {
     super.key,
     this.showBookmarkedStatus = false,
     required this.post,
+    this.onBookmarkPressed,
   });
 
   final bool showBookmarkedStatus;
   final Post post;
+  final VoidCallback? onBookmarkPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +41,11 @@ class PostCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
-
+    
               const HorizontalSpace(
                 size: 10,
               ),
-
+    
               // column with title, author
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -58,20 +60,20 @@ class PostCard extends StatelessWidget {
                           TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
                 ],
               ),
-
+    
               const Spacer(),
-
+    
               showBookmarkedStatus
                   ? IconButton(
-                      onPressed: () {}, icon: const Icon(Icons.bookmark))
+                      onPressed: onBookmarkPressed ?? (){}, icon: const Icon(Icons.bookmark))
                   : const SizedBox(),
             ],
           ),
-
+    
           const VerticalSpace(
             size: 10,
           ),
-
+    
           // short blog details text
           const Text(
             '''Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium optio, eaque rerum! Provident similique accusantium nemo autem. ''',

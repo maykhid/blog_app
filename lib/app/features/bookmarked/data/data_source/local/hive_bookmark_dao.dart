@@ -14,10 +14,10 @@ class HiveBookmarkDao implements BookmarkDao {
   void clearBookmark({required int index}) => _postBox.deleteAt(index);
 
   @override
-  void bookmarkPost({required String key, required Post post}) =>
+  void bookmarkPost({required Post post}) =>
       _postBox.add(post);
 
   @override
-  Posts? getAllBookmarkedPosts({required String key}) =>
+  Posts? getAllBookmarkedPosts() =>
       Posts(posts: _postBox.values.toList());
 }
