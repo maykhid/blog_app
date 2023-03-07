@@ -1,4 +1,5 @@
 import 'package:blog_app/app/features/home/view/widgets/postcard_widget.dart';
+import 'package:blog_app/app/features/shared/model/post.dart';
 import 'package:flutter/material.dart';
 
 class BookmarkScreen extends StatelessWidget {
@@ -17,7 +18,7 @@ class BookmarkScreen extends StatelessWidget {
                   dimension: 8,
                 ),
             itemCount: 4,
-            itemBuilder: (context, _) => const PostCard(showBookmarkedStatus: true,)),
+            itemBuilder: (context, _) => const PostCard(showBookmarkedStatus: true, post: Post(userId: 1, id: 2, body: ''),)),
       ),
     );
   }
