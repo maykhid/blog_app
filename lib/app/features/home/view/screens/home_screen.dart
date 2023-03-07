@@ -48,14 +48,16 @@ class HomeScreen extends StatelessWidget {
               case DataResponseStatus.success:
                 final postResponse = state.postsResponse!.posts;
                 return ListView.separated(
-                  itemCount: 4,
+                  itemCount: postResponse.length,
                   separatorBuilder: (context, count) => const SizedBox.square(
                     dimension: 8,
                   ),
                   itemBuilder: (context, count) => InkWell(
                     onTap: () =>
                         navigationService.navigateToRoute(const PostView()),
-                    child: PostCard(post: postResponse[count],),
+                    child: PostCard(
+                      post: postResponse[count],
+                    ),
                   ),
                 );
 
