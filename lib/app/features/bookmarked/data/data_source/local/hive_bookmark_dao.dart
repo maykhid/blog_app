@@ -6,8 +6,6 @@ import '../../../../shared/model/post.dart';
 class HiveBookmarkDao implements BookmarkDao {
   final Box<Post> _postBox;
 
-  static String postKey = '__post__key__';
-
   HiveBookmarkDao({required Box<Post> postBox}) : _postBox = postBox;
 
   @override

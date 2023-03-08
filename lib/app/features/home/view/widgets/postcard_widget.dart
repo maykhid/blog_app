@@ -48,13 +48,19 @@ class PostCard extends StatelessWidget {
 
               // column with title, author
               Column(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Article ${post.id}',
-                    style: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.w700),
+                  SizedBox(
+                    width: context.width * 0.45,
+                    height: 30,
+                    child: Text(
+                      post.title,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      style: const TextStyle(
+                          fontSize: 13, fontWeight: FontWeight.w500, ),
+                    ),
                   ),
                   Text('Author ${post.userId}',
                       style: const TextStyle(
@@ -67,7 +73,7 @@ class PostCard extends StatelessWidget {
               showBookmarkedStatus
                   ? IconButton(
                       onPressed: onBookmarkPressed ?? () {},
-                      icon: const Icon(Icons.bookmark))
+                      icon: const Icon(Icons.bookmark, color: Colors.teal,))
                   : const SizedBox(),
             ],
           ),

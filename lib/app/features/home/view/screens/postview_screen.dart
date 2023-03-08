@@ -30,11 +30,17 @@ class _PostViewState extends State<PostView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Article ${post.id}'),
+        title: SizedBox(
+          width: context.width * 0.3,
+          child: Text(
+            post.title,
+          ),
+        ),
       ),
       body: SafeArea(
         minimum: const EdgeInsets.all(8),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // post image
             Container(
@@ -71,10 +77,16 @@ class _PostViewState extends State<PostView> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Article ${post.id}',
-                            style: const TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.w700),
+                          SizedBox(
+                            width: context.width * 0.68,
+                            // height: 60,
+                            child: Text(
+                              post.title,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: const TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.w700),
+                            ),
                           ),
                           Text(
                             'Author ${post.userId}',
@@ -96,6 +108,7 @@ class _PostViewState extends State<PostView> {
                               onPressed: () {},
                               icon: const Icon(
                                 Icons.share,
+                                color: Colors.teal,
                                 size: 30,
                               ),
                             ),
@@ -116,7 +129,7 @@ class _PostViewState extends State<PostView> {
                                 Icons.bookmark,
                                 size: 30,
                                 color: _isPostBookmarked(bookmarkedPosts)
-                                    ? Colors.blue
+                                    ? Colors.teal
                                     : Colors.black.withOpacity(0.4),
                               ),
                             ),

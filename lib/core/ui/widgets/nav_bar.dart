@@ -52,7 +52,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
         // iconSize: 15,
         type: BottomNavigationBarType.fixed,
         onTap: (newTab) => setCurrentTabTo(newTabIndex: newTab),
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.teal,
         currentIndex: currentTabIndex,
         items: <BottomNavigationBarItem>[
           // dashboard
