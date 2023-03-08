@@ -1,16 +1,15 @@
-import 'package:blog_app/app/features/home/view/cubits/posts/posts_cubit.dart';
-import 'package:blog_app/app/features/shared/model/post.dart';
+import 'package:blog_app/app/features/search/view/cubits/search_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'postcard_widget.dart';
+import '../../../../../core/dependency_injector.dart';
+import '../widget/search_result_view.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
-  CustomSearchDelegate({required PostsCubit postsCubit})
-      : _postsCubit = postsCubit;
+  CustomSearchDelegate();
 
+  var cubit = di<SearchCubit>();
 
-  final PostsCubit _postsCubit;
-  
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -36,21 +35,23 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     // Implement your search results here.
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ListView.separated(
-        itemCount: 3,
-        separatorBuilder: (context, count) => const SizedBox.square(
-          dimension: 8,
-        ),
-        itemBuilder: (context, count) => InkWell(
-          onTap: () {},
-          child: const PostCard(
-            post: Post(userId: 1, id: 1, title: 'title', body: 'body'),
-          ),
-        ),
-      ),
+    return BlocProvider.value(
+      value: cubit,
+      child: const SearchResultsView(),
     );
+  }
+
+  @override
+  void showResults(
+    BuildContext context, {
+    bool shouldSaveSearchItem = true,
+  }) {
+    if (query.isEmpty) {
+      return;
+    }
+
+    cubit.search(query);
+    super.showResults(context);
   }
 
   @override
@@ -60,5 +61,5 @@ class CustomSearchDelegate extends SearchDelegate {
   }
 
   @override
-  String get searchFieldLabel => 'Search';
+  String get searchFieldLabel => 'Search posts';
 }

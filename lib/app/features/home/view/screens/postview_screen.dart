@@ -78,7 +78,7 @@ class _PostViewState extends State<PostView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
-                            width: context.width * 0.68,
+                            width: context.width * 0.60,
                             // height: 60,
                             child: Text(
                               post.title,

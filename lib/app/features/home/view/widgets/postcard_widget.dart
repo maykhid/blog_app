@@ -21,7 +21,7 @@ class PostCard extends StatelessWidget {
     return Container(
       height: 210,
       width: context.width,
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
         border: Border.all(),
         borderRadius: BorderRadius.circular(8),
@@ -34,7 +34,7 @@ class PostCard extends StatelessWidget {
               // pic view
               Container(
                 height: 100,
-                width: 130,
+                width: 120,
                 decoration: BoxDecoration(
                   border: Border.all(),
                   color: Colors.black,
@@ -52,7 +52,7 @@ class PostCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    width: context.width * 0.45,
+                    width: context.width * 0.40,
                     height: 30,
                     child: Text(
                       post.title,
