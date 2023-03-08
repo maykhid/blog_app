@@ -4,6 +4,7 @@ import 'package:blog_app/core/ui/extensions/sized_context.dart';
 import 'package:blog_app/core/ui/widgets/app_spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_share/social_share.dart';
 
 import '../../../../../core/dependency_injector.dart';
 import '../../../shared/model/post.dart';
@@ -105,7 +106,7 @@ class _PostViewState extends State<PostView> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () => SocialShare.shareOptions('Read this blog post by: \n\n ${post.body} \n\n https://blogpost.inapp.url'),
                               icon: const Icon(
                                 Icons.share,
                                 color: Colors.teal,

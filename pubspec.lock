@@ -259,6 +259,22 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  font_awesome:
+    dependency: "direct main"
+    description:
+      name: font_awesome
+      sha256: faf68c799262f47e4ca5f59f0d1881a1934e62d11ca77d94af15027966f78dca
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.10.1"
+  font_awesome_flutter:
+    dependency: "direct main"
+    description:
+      name: font_awesome_flutter
+      sha256: "959ef4add147753f990b4a7c6cccb746d5792dbdc81b1cde99e62e7edb31b206"
+      url: "https://pub.dev"
+    source: hosted
+    version: "10.4.0"
   frontend_server_client:
     dependency: transitive
     description:
@@ -568,6 +584,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  social_share:
+    dependency: "direct main"
+    description:
+      name: social_share
+      sha256: eb19a0f6f5a29c7bb71e5bb1991145eb52472184363b6e2da70695befd8be041
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.1"
   source_gen:
     dependency: transitive
     description:
