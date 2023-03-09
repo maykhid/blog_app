@@ -39,10 +39,14 @@ class PostCard extends StatelessWidget {
                 height: 100,
                 width: 120,
                 decoration: BoxDecoration(
-                  border: Border.all(),
-                  color: Colors.black,
-                  borderRadius: BorderRadius.circular(8),
-                ),
+                    border: Border.all(),
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(8),
+                    image: const DecorationImage(
+                        image: AssetImage(
+                          'assets/images/dummy.jpg',
+                        ),
+                        fit: BoxFit.cover)),
               ),
 
               const HorizontalSpace(

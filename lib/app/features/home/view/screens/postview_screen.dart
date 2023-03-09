@@ -53,9 +53,13 @@ class _PostViewState extends State<PostView> {
               width: context.width,
               padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
-                border: Border.all(),
-                borderRadius: BorderRadius.circular(8),
-              ),
+                  border: Border.all(),
+                  borderRadius: BorderRadius.circular(8),
+                  image: const DecorationImage(
+                      image: AssetImage(
+                        'assets/images/dummy.jpg',
+                      ),
+                      fit: BoxFit.cover)),
             ),
 
             const VerticalSpace(
