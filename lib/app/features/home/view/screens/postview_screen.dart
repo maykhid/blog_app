@@ -8,11 +8,13 @@ import 'package:social_share/social_share.dart';
 
 import '../../../../../core/dependency_injector.dart';
 import '../../../shared/model/post.dart';
+import '../../../shared/model/user.dart';
 
 class PostView extends StatefulWidget {
-  const PostView({super.key, required this.post});
+  const PostView({super.key, required this.post, required this.users});
 
   final Post post;
+  final Users users;
 
   @override
   State<PostView> createState() => _PostViewState();
@@ -20,10 +22,12 @@ class PostView extends StatefulWidget {
 
 class _PostViewState extends State<PostView> {
   late Post post;
+  late Users users;
 
   @override
   void initState() {
     post = widget.post;
+    users = widget.users;
     super.initState();
   }
 
@@ -65,8 +69,8 @@ class _PostViewState extends State<PostView> {
                   listener: (context, state) {
                 // listen and call when needed
               }, builder: (context, state) {
-                List<Post> bookmarkedPosts = state.bookmarkedPosts != null
-                    ? state.bookmarkedPosts!.posts
+                List<Post> bookmarkedPosts = state.bookmarkedPostsUsers != null
+                    ? state.bookmarkedPostsUsers!.value1.posts
                     : [];
                 return SizedBox(
                   height: 50,
@@ -90,7 +94,7 @@ class _PostViewState extends State<PostView> {
                             ),
                           ),
                           Text(
-                            'Author ${post.userId}',
+                            users.users[post.userId - 1].name,
                             style: const TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.w500,
@@ -106,7 +110,8 @@ class _PostViewState extends State<PostView> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             IconButton(
-                              onPressed: () => SocialShare.shareOptions('Read this blog post by: \n\n ${post.body} \n\n https://blogpost.inapp.url'),
+                              onPressed: () => SocialShare.shareOptions(
+                                  'Read this blog post by: \n\n ${post.body} \n\n https://blogpost.inapp.url'),
                               icon: const Icon(
                                 Icons.share,
                                 color: Colors.teal,

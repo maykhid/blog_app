@@ -1,6 +1,7 @@
-import 'package:blog_app/app/features/home/data/data_source/local/post_dao.dart';
 import 'package:blog_app/app/features/shared/model/post.dart';
 import 'package:hive_flutter/adapters.dart';
+
+import 'post_dao.dart';
 
 class HivePostDao implements PostDao {
   final Box<Posts> _postsBox;
@@ -16,5 +17,5 @@ class HivePostDao implements PostDao {
   Posts? getCachedPosts() => _postsBox.get(_postKey);
 
   @override
-  bool get isCacheAvailable => _postsBox.isNotEmpty;
+  bool get isPostsCacheAvailable => _postsBox.isNotEmpty;
 }

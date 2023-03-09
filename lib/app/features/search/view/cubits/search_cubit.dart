@@ -11,7 +11,7 @@ class SearchCubit extends Cubit<SearchState> {
 
   Future<void> search(String searchTerm) async {
     emit(const SearchState.processing());
-    final response = await _searchRepository.seacrchLiveOrOfflinePosts(searchTerm);
+    final response = await _searchRepository.seacrchLiveOrOfflinePostsAndUsers(searchTerm);
     emit(response.fold((error) => SearchState.failed(message: error.message),
         (res) => SearchState.done(response: res)));
   }

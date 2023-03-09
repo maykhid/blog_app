@@ -1,19 +1,31 @@
 import 'package:blog_app/app/features/bookmarked/data/data_source/local/bookmark_dao.dart';
+import 'package:blog_app/app/features/home/data/data_source/local/users/user_dao.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../../../../core/model/error/failure.dart';
 import '../../../shared/model/post.dart';
+import '../../../shared/model/user.dart';
 
 class BookmarkRepository {
   final BookmarkDao _bookmarkDao;
+  final UserDao _userDao;
 
-  BookmarkRepository({required BookmarkDao bookmarkDao})
-      : _bookmarkDao = bookmarkDao;
+  BookmarkRepository(
+      {required BookmarkDao bookmarkDao, required UserDao userDao})
+      : _bookmarkDao = bookmarkDao,
+        _userDao = userDao;
 
-  Future<Either<Failure, Posts>> getAllBookmarkedPosts() async {
+  Future<Either<Failure, Tuple2<Posts, Users>>> getAllBookmarkedPosts() async {
     try {
       final getbookmarkedPosts = _bookmarkDao.getAllBookmarkedPosts();
-      return Right(getbookmarkedPosts!);
+      final getUsers = _userDao.getCachedUsers();
+
+      // This exists as a fail safe just incase user cache 
+      // is unavailable it can throw an exception
+      if (_userDao.isUsersCacheAvailable) {
+        return Right(Tuple2(getbookmarkedPosts!, getUsers!));
+      }
+      throw Exception();
     } on Exception catch (_) {
       return Left(LocalStorageFailure(message: _.toString()));
     }

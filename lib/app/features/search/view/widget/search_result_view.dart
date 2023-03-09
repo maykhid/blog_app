@@ -6,6 +6,7 @@ import '../../../../../core/router/navigation_service.dart';
 import '../../../../../core/utils/enums.dart';
 import '../../../home/view/screens/postview_screen.dart';
 import '../../../home/view/widgets/postcard_widget.dart';
+import '../../../shared/model/user.dart';
 import '../cubits/search_cubit.dart';
 import '../cubits/search_state.dart';
 
@@ -18,8 +19,10 @@ class SearchResultsView extends StatelessWidget {
   Widget build(BuildContext context) {
     NavigationService navigationService = di<NavigationService>();
     return BlocBuilder<SearchCubit, SearchState>(builder: (context, state) {
-      final searchResults =
-          state.searchResponse != null ? state.searchResponse!.posts : [];
+      final searchResults = state.searchResponse != null
+          ? state.searchResponse!.value1.posts
+          : [];
+      final users = state.searchResponse != null ? state.searchResponse!.value2 : Users(users: []);
       switch (state.status) {
         case DataResponseStatus.initial:
         case DataResponseStatus.processing:
@@ -45,9 +48,11 @@ class SearchResultsView extends StatelessWidget {
               itemBuilder: (context, count) => InkWell(
                 onTap: () => navigationService.navigateToRoute(PostView(
                   post: searchResults[count],
+                  users: users,
                 )),
                 child: PostCard(
                   post: searchResults[count],
+                  users: users,
                 ),
               ),
             ),

@@ -3,17 +3,20 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/ui/widgets/app_spacing.dart';
 import '../../../shared/model/post.dart';
+import '../../../shared/model/user.dart';
 
 class PostCard extends StatelessWidget {
   const PostCard({
     super.key,
     this.showBookmarkedStatus = false,
     required this.post,
+    required this.users,
     this.onBookmarkPressed,
   });
 
   final bool showBookmarkedStatus;
   final Post post;
+  final Users users;
   final VoidCallback? onBookmarkPressed;
 
   @override
@@ -59,10 +62,15 @@ class PostCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                       style: const TextStyle(
-                          fontSize: 13, fontWeight: FontWeight.w500, ),
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
-                  Text('Author ${post.userId}',
+                  const VerticalSpace(
+                    size: 5,
+                  ),
+                  Text(users.users[post.userId - 1].name,
                       style: const TextStyle(
                           fontSize: 15, fontWeight: FontWeight.w500)),
                 ],
@@ -73,7 +81,10 @@ class PostCard extends StatelessWidget {
               showBookmarkedStatus
                   ? IconButton(
                       onPressed: onBookmarkPressed ?? () {},
-                      icon: const Icon(Icons.bookmark, color: Colors.teal,))
+                      icon: const Icon(
+                        Icons.bookmark,
+                        color: Colors.teal,
+                      ))
                   : const SizedBox(),
             ],
           ),

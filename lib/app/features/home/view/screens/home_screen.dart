@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
       body: SafeArea(
         minimum: const EdgeInsets.symmetric(horizontal: 8),
         child: BlocProvider<PostsCubit>(
-          create: (ctx) => PostsCubit(postRepository: di())..getPosts(),
+          create: (ctx) => PostsCubit(postRepository: di())..getPostsUsers(),
           child:
               BlocConsumer<PostsCubit, PostsState>(listener: (context, state) {
             // listen and call when needed
@@ -58,7 +58,8 @@ class HomeScreen extends StatelessWidget {
 
               // on success
               case DataResponseStatus.success:
-                final postResponse = state.postsResponse!.posts;
+                final postResponse = state.postsUsersResponse!.value1.posts;
+                final userResponse = state.postsUsersResponse!.value2;
                 return ListView.separated(
                   itemCount: postResponse.length,
                   separatorBuilder: (context, count) => const SizedBox.square(
@@ -67,8 +68,10 @@ class HomeScreen extends StatelessWidget {
                   itemBuilder: (context, count) => InkWell(
                     onTap: () => navigationService.navigateToRoute(PostView(
                       post: postResponse[count],
+                      users: userResponse,
                     )),
                     child: PostCard(
+                      users: userResponse,
                       post: postResponse[count],
                     ),
                   ),

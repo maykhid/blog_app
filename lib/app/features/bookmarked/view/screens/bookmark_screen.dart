@@ -1,4 +1,5 @@
 import 'package:blog_app/app/features/bookmarked/view/cubits/bookmarkedPosts/boookmarked_posts_state.dart';
+import 'package:blog_app/app/features/shared/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,9 +27,12 @@ class BookmarkScreen extends StatelessWidget {
               // listen and call when needed
             },
             builder: (context, state) {
-              final bookmarkedPosts = state.bookmarkedPosts != null
-                  ? state.bookmarkedPosts!.posts
+              final bookmarkedPosts = state.bookmarkedPostsUsers != null
+                  ? state.bookmarkedPostsUsers!.value1.posts
                   : [];
+
+              final users = state.bookmarkedPostsUsers != null ? state.bookmarkedPostsUsers!.value2 : Users(users: []);
+
               switch (state.status) {
                 // initial
                 case DataResponseStatus.initial:
@@ -63,6 +67,7 @@ class BookmarkScreen extends StatelessWidget {
                     itemBuilder: (context, index) => PostCard(
                       showBookmarkedStatus: true,
                       post: bookmarkedPosts[index],
+                      users: users,
                       onBookmarkPressed: () => _handleRemoveBookmark(
                           context.read<BookmarkedPostsCubit>(), index),
                     ),

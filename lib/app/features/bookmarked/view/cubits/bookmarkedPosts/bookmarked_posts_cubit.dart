@@ -15,7 +15,7 @@ class BookmarkedPostsCubit extends Cubit<BookmarkedPostsState> {
     final response = await _bookmarkRepository.getAllBookmarkedPosts();
     emit(response.fold(
         (error) => BookmarkedPostsState.failed(message: error.message),
-        (res) => BookmarkedPostsState.done(bookmarkedPosts: res)));
+        (res) => BookmarkedPostsState.done(bookmarkedPostsUsers: res)));
   }
 
   void bookmarkPost(Post post) => _bookmarkRepository.bookmarkPost(post);

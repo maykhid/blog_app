@@ -6,6 +6,7 @@ import 'package:blog_app/core/data/data_source/remote/api_configs.dart';
 
 import '../../../../../../core/model/error/exception.dart';
 import '../../../../../../core/services/api_service.dart';
+import '../../../../shared/model/user.dart';
 
 class PostApiClient {
   PostApiClient({required APIService apiService}) : _apiService = apiService;
@@ -23,6 +24,18 @@ class PostApiClient {
     try {
       final response = await _apiService.get(url: url, headers: _authHeaders);
       return Posts.fromJson(jsonDecode(response.body));
+    } on ServerException catch (_) {
+      _.log();
+      rethrow;
+    }
+  }
+
+  Future<Users> getUsers() async {
+    final url = Uri.https(ApiConfigs.baseUrlPath, ApiConfigs.usersPath)..log();
+
+    try {
+      final response = await _apiService.get(url: url, headers: _authHeaders);
+      return Users.fromJson(jsonDecode(response.body));
     } on ServerException catch (_) {
       _.log();
       rethrow;

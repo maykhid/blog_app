@@ -1,30 +1,32 @@
 import 'package:blog_app/app/features/shared/model/post.dart';
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../../../core/utils/enums.dart';
+import '../../../../shared/model/user.dart';
 
 class PostsState extends Equatable {
   const PostsState._({
     this.message,
-    this.postsResponse,
+    this.postsUsersResponse,
     this.status = DataResponseStatus.initial,
   });
 
   final DataResponseStatus status;
   final String? message;
-  final Posts? postsResponse;
+  final Tuple2<Posts, Users>? postsUsersResponse;
 
   const PostsState.unknown() : this._();
 
   const PostsState.processing()
       : this._(status: DataResponseStatus.processing);
 
-  const PostsState.done({required Posts response})
-      : this._(status: DataResponseStatus.success, postsResponse: response);
+  const PostsState.done({required Tuple2<Posts, Users> response})
+      : this._(status: DataResponseStatus.success, postsUsersResponse: response);
 
   const PostsState.failed({String? message})
       : this._(message: message, status: DataResponseStatus.error);
 
   @override
-  List<Object?> get props => [status, message, postsResponse];
+  List<Object?> get props => [status, message, postsUsersResponse];
 }

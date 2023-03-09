@@ -9,7 +9,7 @@ class PostsCubit extends Cubit<PostsState> {
 
   final PostRepository _postRepository;
 
-  Future<void> getPosts() async {
+  Future<void> getPostsUsers() async {
     emit(const PostsState.processing());
     final response = await _postRepository.getLiveOrCachedPosts();
     emit(response.fold((error) => PostsState.failed(message: error.message),

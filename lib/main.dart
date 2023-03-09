@@ -1,3 +1,4 @@
+import 'package:blog_app/app/features/shared/model/user.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path/path.dart';
@@ -17,7 +18,9 @@ Future<void> main() async {
   // register custom types
   Hive
     ..registerAdapter(PostsAdapter())
-    ..registerAdapter(PostAdapter());
+    ..registerAdapter(PostAdapter())
+    ..registerAdapter(UserAdapter())
+    ..registerAdapter(UsersAdapter());
 
   await setupLocator();
 
