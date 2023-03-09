@@ -1,16 +1,29 @@
-# blog_app
+# Blog App
 
-A new Flutter project.
+# An Assessment Project.
+A simple app that displays blog posts by authors using the [Json Placeholder API.](https://jsonplaceholder.typicode.com/)
+
+## Features
+- Viewing posts.
+- Bookmarking posts.
+- Sharing posts.
+- Search (By Title)
+
+## Essential Plugins / Packages Used
+- Dartz (For Funtional Programming - Mostly used for error handling and introducing Tuples in my case)
+- Http
+- Hive (For Local Storage)
+- Bloc (For State Management) 
+- Internet Connection Checker
+- Equatable (For checking equality of Objects)
+- Get-It (For Dependency Injection)
 
 ## Getting Started
+You have to have Flutter installed in your machine. Clone this repository and run `flutter pub get`.
+I am currently running `Flutter version 3.7.6` with `Dart version 2.19.3`.
 
-This project is a starting point for a Flutter application.
+## Brief
+This project as previously stated is a simple blog app for users to read blog posts. They can share, bookmark and 
 
-A few resources to get you started if this is your first Flutter project:
+also includes a Caching mecahnism
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
