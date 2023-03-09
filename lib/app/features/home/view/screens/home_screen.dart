@@ -1,6 +1,7 @@
 import 'package:blog_app/app/features/home/view/cubits/posts/posts_cubit.dart';
 import 'package:blog_app/app/features/home/view/cubits/posts/posts_state.dart';
 import 'package:blog_app/app/features/home/view/screens/postview_screen.dart';
+import 'package:blog_app/app/features/shared/widgets/app_snackbar.dart';
 import 'package:blog_app/core/router/navigation_service.dart';
 import 'package:blog_app/core/utils/enums.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,9 @@ class HomeScreen extends StatelessWidget {
           create: (ctx) => PostsCubit(postRepository: di())..getPostsUsers(),
           child:
               BlocConsumer<PostsCubit, PostsState>(listener: (context, state) {
-            // listen and call when needed
+            if (state.status == DataResponseStatus.error) {
+              AppSnackBar.showErrorSnackBar(context, state.message!);
+            }
           }, builder: (context, state) {
             switch (state.status) {
               // initial

@@ -25,7 +25,7 @@ class BookmarkRepository {
       if (_userDao.isUsersCacheAvailable) {
         return Right(Tuple2(getbookmarkedPosts!, getUsers!));
       }
-      throw Exception();
+      throw Exception('Could not get your bookmarks');
     } on Exception catch (_) {
       return Left(LocalStorageFailure(message: _.toString()));
     }

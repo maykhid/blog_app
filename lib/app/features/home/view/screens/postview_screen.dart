@@ -111,7 +111,7 @@ class _PostViewState extends State<PostView> {
                           children: [
                             IconButton(
                               onPressed: () => SocialShare.shareOptions(
-                                  'Read this blog post by: \n\n ${post.body} \n\n https://blogpost.inapp.url'),
+                                  'Read this blog post by: ${users.users[post.userId - 1].name}\n\n ${post.body} \n\n https://blogpost.inapp.url'),
                               icon: const Icon(
                                 Icons.share,
                                 color: Colors.teal,

@@ -9,7 +9,7 @@ class APIService {
       {required Uri url, Map<String, String>? headers}) async {
     final response =
         await http.get(url, headers: headers ?? {}).catchError((_) {
-      throw ServerException('Connection Error', 0);
+      throw ServerException('Connection Error: Check your internet connection', 0);
     });
     return _handleResponse(response);
   }
@@ -34,7 +34,6 @@ class APIService {
       return response;
     }
     final errorBody = jsonDecode(response.body);
-    throw ServerException(
-        "${errorBody["error"]}: ${errorBody["message"]}", response.statusCode);
+    throw ServerException(errorBody, response.statusCode);
   }
 }

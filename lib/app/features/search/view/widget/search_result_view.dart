@@ -22,13 +22,20 @@ class SearchResultsView extends StatelessWidget {
       final searchResults = state.searchResponse != null
           ? state.searchResponse!.value1.posts
           : [];
-      final users = state.searchResponse != null ? state.searchResponse!.value2 : Users(users: []);
+      final users = state.searchResponse != null
+          ? state.searchResponse!.value2
+          : Users(users: []);
       switch (state.status) {
         case DataResponseStatus.initial:
         case DataResponseStatus.processing:
           return const Center(
             child: CircularProgressIndicator(),
           );
+        case DataResponseStatus.error:
+          return const Center(
+              child: Text(
+            '''              Could not pefrorm search!\nCheck internet connection and try again''', 
+          ));
 
         case DataResponseStatus.success:
           if (searchResults.isEmpty) {

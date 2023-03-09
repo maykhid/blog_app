@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/dependency_injector.dart';
 import '../../../../../core/utils/enums.dart';
 import '../../../home/view/widgets/postcard_widget.dart';
+import '../../../shared/widgets/app_snackbar.dart';
 import '../cubits/bookmarkedPosts/bookmarked_posts_cubit.dart';
 
 class BookmarkScreen extends StatelessWidget {
@@ -24,14 +25,18 @@ class BookmarkScreen extends StatelessWidget {
             ..getBookmarkedPosts(),
           child: BlocConsumer<BookmarkedPostsCubit, BookmarkedPostsState>(
             listener: (context, state) {
-              // listen and call when needed
+              if (state.status == DataResponseStatus.error) {
+                AppSnackBar.showErrorSnackBar(context, state.message!);
+              }
             },
             builder: (context, state) {
               final bookmarkedPosts = state.bookmarkedPostsUsers != null
                   ? state.bookmarkedPostsUsers!.value1.posts
                   : [];
 
-              final users = state.bookmarkedPostsUsers != null ? state.bookmarkedPostsUsers!.value2 : Users(users: []);
+              final users = state.bookmarkedPostsUsers != null
+                  ? state.bookmarkedPostsUsers!.value2
+                  : Users(users: []);
 
               switch (state.status) {
                 // initial
