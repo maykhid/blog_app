@@ -13,7 +13,7 @@ class LocalStorageException implements Exception {
   final int? code;
 
   @override
-  String toString() => 'ServerException (Message >> $message - ErrorCode >> $code)';
+  String toString() => 'LocalStorageException (Message >> $message - ErrorCode >> $code)';
 }
 
 

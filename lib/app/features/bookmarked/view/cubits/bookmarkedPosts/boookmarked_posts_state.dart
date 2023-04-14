@@ -1,9 +1,7 @@
-import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../../../core/utils/enums.dart';
-import '../../../../shared/model/post.dart';
-import '../../../../shared/model/user.dart';
+import '../../../../../../core/utils/typedefs.dart';
 
 class BookmarkedPostsState extends Equatable {
   const BookmarkedPostsState._({
@@ -14,7 +12,7 @@ class BookmarkedPostsState extends Equatable {
 
   final DataResponseStatus status;
   final String? message;
-  final Tuple2<Posts, Users>? bookmarkedPostsUsers;
+  final PostsWithUsers? bookmarkedPostsUsers;
 
   const BookmarkedPostsState.unknown() : this._();
 
@@ -22,7 +20,7 @@ class BookmarkedPostsState extends Equatable {
       : this._(status: DataResponseStatus.processing);
 
   const BookmarkedPostsState.done(
-      {required Tuple2<Posts, Users> bookmarkedPostsUsers})
+      {required PostsWithUsers bookmarkedPostsUsers})
       : this._(
             status: DataResponseStatus.success,
             bookmarkedPostsUsers: bookmarkedPostsUsers);

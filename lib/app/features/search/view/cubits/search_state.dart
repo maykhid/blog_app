@@ -1,9 +1,7 @@
-import 'package:dartz/dartz.dart';
+import 'package:blog_app/core/utils/typedefs.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../../core/utils/enums.dart';
-import '../../../shared/model/post.dart';
-import '../../../shared/model/user.dart';
 
 class SearchState extends Equatable {
   const SearchState._({
@@ -14,14 +12,14 @@ class SearchState extends Equatable {
 
   final DataResponseStatus status;
   final String? message;
-  final Tuple2<Posts, Users>? searchResponse;
+  final PostsWithUsers? searchResponse;
 
   const SearchState.unknown() : this._();
 
   const SearchState.processing()
       : this._(status: DataResponseStatus.processing);
 
-  const SearchState.done({required Tuple2<Posts, Users>? response})
+  const SearchState.done({required PostsWithUsers? response})
       : this._(status: DataResponseStatus.success, searchResponse: response);
 
   const SearchState.failed({String? message})

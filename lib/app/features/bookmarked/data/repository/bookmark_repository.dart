@@ -3,8 +3,8 @@ import 'package:blog_app/app/features/home/data/data_source/local/users/user_dao
 import 'package:dartz/dartz.dart';
 
 import '../../../../../core/model/error/failure.dart';
+import '../../../../../core/utils/typedefs.dart';
 import '../../../shared/model/post.dart';
-import '../../../shared/model/user.dart';
 
 class BookmarkRepository {
   final BookmarkDao _bookmarkDao;
@@ -15,7 +15,7 @@ class BookmarkRepository {
       : _bookmarkDao = bookmarkDao,
         _userDao = userDao;
 
-  Future<Either<Failure, Tuple2<Posts, Users>>> getAllBookmarkedPosts() async {
+  Future<Either<Failure, PostsWithUsers>> getAllBookmarkedPosts() async {
     try {
       final getbookmarkedPosts = _bookmarkDao.getAllBookmarkedPosts();
       final getUsers = _userDao.getCachedUsers();
@@ -23,7 +23,7 @@ class BookmarkRepository {
       // This exists as a fail safe just incase user cache 
       // is unavailable it can throw an exception
       if (_userDao.isUsersCacheAvailable) {
-        return Right(Tuple2(getbookmarkedPosts!, getUsers!));
+        return Right(PostsWithUsers(getbookmarkedPosts!, getUsers!));
       }
       throw Exception('Could not get your bookmarks');
     } on Exception catch (_) {
